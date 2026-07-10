@@ -1,0 +1,384 @@
+/* IMPORT GOOGLE FONTS */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+/* CSS DESIGN SYSTEM VARIABLES */
+:root {
+    --bg-primary: #050814;
+    --bg-secondary: #0c1226;
+    --bg-card: #0c1226;
+    --border-color: rgba(59, 130, 246, 0.15);
+    --border-hover: rgba(59, 130, 246, 0.4);
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --grid-opacity: 0.035;
+    
+    --color-primary: #2563eb;
+    --color-secondary: #3b82f6;
+    --color-accent: #60a5fa;
+    --color-success: #10b981;
+    --font-sans: 'Plus Jakarta Sans', sans-serif;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* LIGHT MODE COMPATIBILITY OVERRIDES */
+body.light-mode {
+    --bg-primary: #f8fafc;
+    --bg-secondary: #ffffff;
+    --bg-card: #ffffff;
+    --border-color: rgba(37, 99, 235, 0.1);
+    --border-hover: rgba(37, 99, 235, 0.3);
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --grid-opacity: 0.05;
+}
+
+/* RESET & BASE STYLES */
+* {
+    margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-sans);
+}
+html { scroll-behavior: smooth; }
+
+body {
+    background-color: var(--bg-primary);
+    background-image: 
+        linear-gradient(rgba(59, 130, 246, var(--grid-opacity)) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59, 130, 246, var(--grid-opacity)) 1px, transparent 1px);
+    background-size: 28px 28px;
+    background-position: center;
+    color: var(--text-primary);
+    line-height: 1.7;
+    padding-bottom: 40px;
+    overflow-x: hidden;
+    position: relative;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* AMBIENT GLOWS */
+.ambient-glow {
+    position: absolute; width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.06) 0%, transparent 70%);
+    pointer-events: none; z-index: -1;
+}
+body.light-mode .ambient-glow {
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.03) 0%, transparent 70%);
+}
+.glow-1 { top: 5%; left: -200px; }
+.glow-2 { top: 45%; right: -200px; }
+
+.container { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+/* NAVBAR NAVIGATION */
+.navbar {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+    background: var(--bg-primary); opacity: 0.96; backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+}
+.nav-container {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo { font-weight: 800; font-size: 1.2rem; color: var(--text-primary); text-decoration: none; transition: var(--transition); }
+.logo:hover { color: var(--color-accent); }
+.nav-right-group { display: flex; align-items: center; gap: 32px; }
+.nav-links { display: flex; gap: 24px; list-style: none; }
+.nav-links a {
+    text-decoration: none; color: var(--text-secondary); font-size: 0.9rem;
+    font-weight: 500; transition: var(--transition); padding: 6px 0; position: relative;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--color-accent); }
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-accent), var(--color-secondary));
+    transition: var(--transition);
+    border-radius: 2px;
+}
+.nav-links a:hover::after, .nav-links a.active::after {
+    width: 100%;
+}
+
+/* CONTROLS (THEME & LANG) BUTTONS */
+.nav-controls { display: flex; gap: 10px; }
+.control-btn {
+    background: var(--bg-secondary); border: 1px solid var(--border-color);
+    color: var(--text-primary); padding: 8px 12px; border-radius: 8px;
+    cursor: pointer; font-weight: 600; font-size: 0.8rem; display: flex; align-items: center; justify-content: center;
+    transition: var(--transition);
+}
+.control-btn:hover { border-color: var(--color-accent); background: rgba(59, 130, 246, 0.1); }
+.control-btn svg { width: 16px; height: 16px; }
+
+/* Dynamic Theme Icon Visibility */
+.sun-icon { display: none; }
+.moon-icon { display: block; }
+body.light-mode .sun-icon { display: block; }
+body.light-mode .moon-icon { display: none; }
+
+/* HERO SECTION */
+.hero { padding: 160px 0 80px 0; }
+.hero-content-split { display: flex; align-items: center; justify-content: space-between; gap: 48px; }
+.hero-left { flex: 1.2; }
+.hero-right { flex: 0.8; display: flex; justify-content: center; }
+
+.hero-title { font-size: 2.8rem; font-weight: 800; line-height: 1.2; margin-bottom: 20px; color: var(--text-primary); }
+.hero-title .gradient-text {
+    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-secondary) 100%);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero-desc { font-size: 1.05rem; color: var(--text-secondary); margin-bottom: 32px; }
+.hero-contact-group { display: flex; gap: 12px; flex-wrap: wrap; }
+.contact-pill {
+    display: inline-flex; align-items: center; gap: 8px; background: var(--bg-secondary);
+    border: 1px solid var(--border-color); padding: 8px 16px; border-radius: 100px;
+    font-size: 0.85rem; color: var(--text-secondary); text-decoration: none; transition: var(--transition);
+}
+.contact-pill svg { width: 14px; height: 14px; fill: none; stroke: currentColor; }
+.link-pill:hover { border-color: var(--color-accent); color: var(--color-accent); transform: translateY(-1px); }
+.btn-cv { background: var(--color-primary) !important; color: #ffffff !important; border-color: var(--color-primary) !important; }
+.btn-cv:hover { background: var(--color-secondary) !important; }
+
+/* INTERACTIVE AVATAR CIRCLE & BADGES WITH NEON GLOW & FLOAT ANIMATION */
+.avatar-interactive-wrapper { 
+    position: relative; 
+    width: 220px; 
+    height: 220px;
+    cursor: pointer;
+}
+
+.avatar-circle {
+    width: 200px; 
+    height: 200px; 
+    border-radius: 50%; 
+    overflow: hidden;
+    background: var(--bg-secondary); 
+    border: 4px solid var(--border-color); /* Bingkai mengikuti warna tema */
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.4);
+    transition: var(--transition);
+}
+
+.avatar-circle img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover effects untuk Avatar Lingkaran */
+.avatar-interactive-wrapper:hover .avatar-circle {
+    transform: scale(1.02);
+    border-color: var(--color-accent);
+    box-shadow: 0 25px 50px -12px rgba(37, 99, 235, 0.25), 0 0 24px rgba(96, 165, 250, 0.15);
+}
+
+.avatar-interactive-wrapper:hover .avatar-circle img {
+    transform: scale(1.05);
+}
+
+/* Base style untuk floating badge - Dibuat mengambang indah (Glassmorphism solid) */
+.floating-badge {
+    position: absolute; 
+    background: rgba(12, 18, 38, 0.75); 
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    padding: 7px 14px; 
+    border-radius: 100px; 
+    font-size: 0.76rem; 
+    font-weight: 600; 
+    color: #93c5fd; 
+    display: inline-flex; 
+    align-items: center; 
+    gap: 8px; 
+    white-space: nowrap; 
+    box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.3);
+    transition: var(--transition);
+    
+    /* TRICK SENSEI: Pasang animasi mengambang otomatis secara default */
+    animation: floatAnimation 4s ease-in-out infinite;
+}
+
+/* Penyesuaian Floating Badge untuk LIGHT MODE (Otomatis rapi saat toggle diklik!) */
+body.light-mode .floating-badge {
+    background: rgba(255, 255, 255, 0.85);
+    border-color: rgba(37, 99, 235, 0.15);
+    color: var(--color-primary);
+    box-shadow: 0 8px 20px -4px rgba(37, 99, 235, 0.1);
+}
+
+/* Positionings - Penempatan posisi yang presisi dan seimbang */
+.badge-top { top: -12px; left: 50%; transform: translateX(-50%); }
+.badge-left-top { top: 35px; left: -85px; }
+.badge-left-bottom { bottom: 35px; left: -80px; }
+.badge-bottom { bottom: -12px; left: 50%; transform: translateX(-50%); }
+
+/* Efek Hover Interaktif Premium per Badge ketika didekati kursor */
+.floating-badge:hover {
+    animation-play-state: paused; /* Memaksa animasi berhenti jalan saat kursor nempel */
+    background: var(--bg-secondary) !important;
+    border-color: var(--color-accent) !important;
+    color: #ffffff !important;
+    box-shadow: 0 12px 24px -6px rgba(37, 99, 235, 0.3), 0 0 12px rgba(96, 165, 250, 0.2) !important;
+    transform: scale(1.06) !important;
+}
+
+body.light-mode .floating-badge {
+    background: rgba(255, 255, 255, 0.85);
+    border-color: rgba(37, 99, 235, 0.15);
+    color: var(--color-primary);
+    box-shadow: 0 8px 20px -4px rgba(37, 99, 235, 0.1);
+}
+
+body.light-mode .floating-badge:hover {
+    color: var(--color-primary) !important;
+    box-shadow: 0 12px 24px -6px rgba(37, 99, 235, 0.2) !important;
+}
+
+/* Mempertahankan posisi translasi awal khusus badge atas dan bawah saat di-hover */
+.badge-top { 
+    top: -12px; left: 50%; 
+    transform: translateX(-50%); 
+    animation-delay: 0s; 
+}
+.badge-left-top { 
+    top: 35px; left: -85px; 
+    animation-delay: 0.5s; /* Jeda gerak */
+}
+.badge-left-bottom { 
+    bottom: 35px; left: -80px; 
+    animation-delay: 1s; /* Jeda gerak */
+}
+.badge-bottom { 
+    bottom: -12px; left: 50%; 
+    transform: translateX(-50%); 
+    animation-delay: 1.5s; /* Jeda gerak */
+}
+
+/* Hover overriding untuk mempertahankan translateX pada badge atas dan bawah */
+@keyframes floatAnimation {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-8px); /* Bergerak naik sejauh 8px */
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+/* Khusus badge atas dan bawah agar modifikasi translateY tidak merusak susunan tengah */
+@keyframes floatAnimationX {
+    0% {
+        transform: translateX(-50%) translateY(0px);
+    }
+    50% {
+        transform: translateX(-50%) translateY(-8px);
+    }
+    100% {
+        transform: translateX(-50%) translateY(0px);
+    }
+}
+/* Pasangkan keyframe khusus X ini untuk badge top & bottom */
+/* SOLUSI PERBAIKAN: Mempertahankan jangkar tengah dari komponen pembungkus */
+.badge-top:hover { 
+    transform: translate(-50%, 0px) scale(1.08) !important;
+}
+
+.badge-bottom:hover { 
+    transform: translate(-50%, 0px) scale(1.08) !important;
+}
+
+/* Floating Socials static positioning */
+.floating-socials { 
+    position: absolute; right: -55px; top: 50%; transform: translateY(-50%); 
+    display: flex; 
+    flex-direction: column; 
+    gap: 12px; 
+}
+.avatar-interactive-wrapper:hover .floating-socials {
+    animation: none;
+    transform: translateY(-50%) translateX(6px);
+}
+
+.social-icon-btn {
+    width: 36px; height: 36px; border-radius: 50%; background: var(--bg-secondary); border: 1px solid var(--border-color);
+    display: flex; align-items: center; justify-content: center; color: var(--color-accent); transition: var(--transition); text-decoration: none;
+}
+.social-icon-btn svg { width: 15px; height: 15px; fill: currentColor; }
+.social-icon-btn:hover { background: var(--color-primary); color: #ffffff; transform: translateY(-2px); }
+
+/* SECTIONS COMMONS */
+section { padding: 80px 0 20px 0; }
+.section-title { font-size: 1.65rem; font-weight: 800; margin-bottom: 35px; color: var(--text-primary); position: relative; display: inline-block; }
+.section-title::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 36px; height: 3px; background: var(--color-accent); border-radius: 2px; }
+
+/* PROJECT CARDS AREA */
+.projects-list { display: flex; flex-direction: column; gap: 28px; }
+.project-card { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 30px; transition: var(--transition); position: relative; overflow: hidden; }
+.project-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; }
+.project-card.manual-testing::before { background: #60a5fa; }
+.project-card.automation::before { background: #a855f7; }
+.project-card.performance::before { background: #eab308; }
+.project-card:hover { transform: translateY(-3px); border-color: var(--border-hover); box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.15); }
+
+.card-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+.project-card h3 { font-size: 1.35rem; font-weight: 700; color: var(--text-primary); }
+.badge { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; padding: 6px 12px; border-radius: 100px; }
+.badge-manual { background: rgba(96, 165, 250, 0.1); color: #60a5fa; }
+.badge-automation { background: rgba(168, 85, 247, 0.1); color: #a855f7; }
+.badge-performance { background: rgba(234, 179, 8, 0.1); color: #eab308; }
+
+.project-desc { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 24px; }
+.project-features { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
+.project-features span { background: rgba(59, 130, 246, 0.05); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; color: var(--text-primary); }
+
+.btn-link {
+    display: inline-flex; align-items: center; gap: 8px; color: var(--text-primary); text-decoration: none;
+    font-weight: 600; font-size: 0.85rem; padding: 10px 20px; border-radius: 8px; transition: var(--transition);
+    border: 1px solid var(--border-color); background: rgba(59, 130, 246, 0.04);
+}
+.btn-link svg { width: 14px; height: 14px; transition: transform 0.2s ease; fill: none; stroke: currentColor; }
+.btn-link:hover { background: var(--color-primary); color: #ffffff !important; border-color: var(--color-primary); }
+.btn-link:hover svg { transform: translate(2px, -2px); }
+
+/* SKILLS MATRIX AREA */
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; }
+.skills-category { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; transition: var(--transition); }
+.skills-category:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+.skills-category h4 { font-size: 0.95rem; color: var(--text-primary); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.skills-category h4 svg { width: 16px; height: 16px; color: var(--color-accent); }
+.skills-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.skills-tags span { background: rgba(59, 130, 246, 0.04); border: 1px solid var(--border-color); color: var(--text-secondary); padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; }
+.skills-category:hover .skills-tags span { color: var(--text-primary); border-color: var(--color-accent); }
+
+/* CERTIFICATIONS AREA */
+.cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+.cert-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; transition: var(--transition); }
+.cert-card:hover { border-color: var(--border-hover); transform: translateY(-3px); }
+.cert-card-top h4 { font-size: 1.05rem; color: var(--text-primary); margin-bottom: 6px; }
+.cert-card-top p { color: var(--text-secondary); font-size: 0.88rem; }
+.cert-card-footer { margin-top: 18px; font-size: 0.76rem; color: var(--color-accent); font-weight: 600; }
+
+/* FOOTER AREA */
+footer { margin-top: 80px; text-align: center; padding: 40px 0; border-top: 1px solid var(--border-color); }
+footer p { color: var(--text-secondary); opacity: 0.6; font-size: 0.82rem; }
+
+/* RESPONSIVE LAYOUT */
+@media (max-width: 900px) {
+    .hero-content-split { flex-direction: column-reverse; gap: 40px; text-align: center; }
+    .hero { padding: 120px 0 40px 0; }
+    .hero-title { font-size: 2.25rem; }
+    .hero-contact-group { justify-content: center; }
+    .floating-socials { right: auto; left: 50%; transform: translateX(-50%); flex-direction: row; top: 240px; }
+    .avatar-interactive-wrapper { margin-bottom: 40px; }
+    .nav-links { display: none; } /* Simpel responsive navigation hiding */
+}
